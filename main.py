@@ -3,8 +3,7 @@
 
 from matrice import *
 from init import *
-
-m = Matrice(test)
+from algo import *
 
 while num != 0:
 
@@ -18,23 +17,12 @@ while num != 0:
 
 	def floyd():
 		
-		dim = m.getDimensions()
+		print "Matrice de test :"
+		print floyd_cours.affiche()
 
-
-		tabres = [[0 for x in xrange(dim)] for x in xrange(dim)] 
- 
-		for i in range (dim):
-			for j in range(dim):
-				tabres[i][j] = m.getValue(i,j);
-    
-		for k in range (dim):
-			for i in range (dim):
-				for j in range (dim):
-					if tabres[i][k] + tabres[k][j] < tabres[i][j]:
-						tabres[i][j] = tabres[i][k] + tabres[k][j];
+		res = floyd_algo(floyd_cours)
 
 		print "Résultat Algortihme Floyd-Warshall"
-		res = Matrice(tabres)
 		print res.affiche()
  
 

@@ -1,6 +1,8 @@
 #!/usr/bin/python2.7
 # -*-coding:Utf-8 -*
 
+from matrice import *
+
 INF = 9999
 
 intro = "------- MRO PYTHON ------ \n \
@@ -12,9 +14,21 @@ intro = "------- MRO PYTHON ------ \n \
 6 - Simplexe \n \
 0 - Exit\n"
 
-test = [[ 0, 5, INF, 10],\
-	[INF, 0, 3, INF],\
-	[INF, INF, 0, 1],\
-	[INF, INF, INF, 0]]
-
 num=-10
+
+tab_floyd_cours = \
+	[[INF ,  3  ,  8  ,  6  , INF , INF ],\
+	[ INF , INF , INF ,  2  ,  6  , INF ],\
+	[ INF , INF , INF , INF ,  1  , INF ],\
+	[ INF , INF ,  2  , INF , INF ,  7  ],\
+	[ INF , INF , INF , INF , INF ,  2  ],\
+	[ INF , INF , INF , INF , INF , INF ]]
+
+tab_floyd_autre = \
+	[[ 0  , 5   , INF , 10 ],\
+	[ INF , 0   , 3   , INF],\
+	[ INF , INF , 0   , 1  ],\
+	[ INF , INF , INF , 0  ]]
+
+floyd_cours = Matrice(tab_floyd_cours)
+floyd_autre = Matrice(tab_floyd_autre)

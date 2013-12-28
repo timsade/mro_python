@@ -27,8 +27,8 @@ class Matrice :
 		for el in self.data:
 			for  el2 in el:
 				if el2 == 9999:
-					res += "INF" + " "
+					res += "INF" + "	"
 				else:					
-					res += str(el2) + " "
+					res += str(el2) + "	"
 			res += "\n"
 		return res
