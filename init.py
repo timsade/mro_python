@@ -12,9 +12,10 @@ intro = "------- MRO PYTHON ------ \n \
 1 - Programmation dynamique  \n \
 2 - Floyd-WHarshall\n \
 3 - Méthode des potentiels \n \
-4 - Ford-Fulkerson\n \
-5 - Procédures Branch et Bound \n \
-6 - Simplexe \n \
+4 - Johnson \n \
+5 - Ford-Fulkerson\n \
+6 - Procédures Branch et Bound \n \
+7 - Simplexe \n \
 0 - Exit\n"
 
 num=-10
@@ -35,3 +36,23 @@ tab_floyd_autre = \
 
 floyd_cours = Matrice(tab_floyd_cours)
 floyd_autre = Matrice(tab_floyd_autre)
+
+tab_johnson_cours = \
+	[[5,7],\
+	 [6,4],\
+	 [9,8],\
+	 [7,5],\
+	 [8,10],\
+	 [6,6],\
+	 [4,3],\
+	 [5,6]]
+
+tab_johnson_autre = \
+	[[50,60],\
+	 [150,50],\
+	 [80,150],\
+	 [200,70],\
+	 [30,200]]
+
+johnson_cours = Matrice(tab_johnson_cours)
+johnson_autre = Matrice(tab_johnson_autre)

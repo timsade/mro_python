@@ -23,3 +23,26 @@ def floyd_algo(m):
 
 	res = Matrice(tabres)
 	return res
+
+def johnson_algo(m):
+	S = list();
+	T = list();
+	P =range(m.getDimensions());
+	while P:
+		rank = 0;
+		mini = None;
+		for i in P:
+			newmin = min(m.getValue(i,0),m.getValue(i,1));
+			if mini == None:
+				mini =  newmin;
+				rank = i;
+			elif mini > newmin:
+				mini = newmin;
+				rank = i;
+		if m.getValue(rank,0)<m.getValue(rank,1):
+			S.append(rank+1);
+		else:
+			T.append(rank+1);
+		P.remove(rank);
+	T.reverse();
+	return S + T;
