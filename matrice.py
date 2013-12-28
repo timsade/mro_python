@@ -1,6 +1,7 @@
 #!/usr/bin/python2.7
 # -*-coding:Utf-8 -*
 
+#Définition d'une matrice
 class Matrice :
 	
 	def __init__(self,tab):

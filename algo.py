@@ -3,6 +3,8 @@
 
 from matrice import *
 
+#Définition des algo utilisés par le programme principal avec la matrice en argument
+
 def floyd_algo(m):
 
 	dim = m.getDimensions()

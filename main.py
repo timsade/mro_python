@@ -5,6 +5,8 @@ from matrice import *
 from init import *
 from algo import *
 
+
+#le main qui ne fait qu'un switch case sur ce que l'utilisateur veut faire
 while num != 0:
 
 	print intro
@@ -12,6 +14,9 @@ while num != 0:
 	num = input("Entrer le numéro correspondant: ")
 	print '\n'
 
+	#début du switch case à la pyhton
+
+	#dynamiques
 	def dyn():
 		print "à faire"
 
@@ -20,7 +25,7 @@ while num != 0:
 		print "Matrice de test :"
 		print floyd_cours.affiche()
 
-		res = floyd_algo(floyd_cours)
+		res = floyd_algo(floyd_cours) #appel de la fonction dans algo
 
 		print "Résultat Algortihme Floyd-Warshall"
 		print res.affiche()

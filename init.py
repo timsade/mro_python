@@ -3,6 +3,9 @@
 
 from matrice import *
 
+#Initialisation des variables et des matrices utlisés en test 
+#TODO matrice dans un fichier en lecture ? (pas ma priorité @timsade)
+
 INF = 9999
 
 intro = "------- MRO PYTHON ------ \n \
