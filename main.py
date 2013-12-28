@@ -2,37 +2,61 @@
 # -*-coding:Utf-8 -*
 
 from matrice import *
-
-print "------- MRO PYTHON ------ \n \
-	1 - Programmation dynamique  \n \
-	2 - Floyd-WHarshall\n \
-	3 - Méthode des potentiels \n \
-	4 - Ford-Fulkerson\n \
-	5 - Procédures Branch et Bound \n \
-	6 - Simplexe \n"
-	
-num = input()
-
-def dyn():
-	print "à faire"
-
-def floyd():
-	print "en cours"
-	
-
-algo ={	1 : dyn,
-	2 : floyd
-	#3 : poten,
-	#4 : ford,
-	#5 : branch,
-	#6 : simplexe 
-}
-
-test = [["1", "2", "3"],["4", "5", "6"],["7", "8", "9"]]
+from init import *
 
 m = Matrice(test)
 
-algo[num]()
+while num != 0:
+
+	print intro
+
+	num = input("Entrer le numéro correspondant: ")
+	print '\n'
+
+	def dyn():
+		print "à faire"
+
+	def floyd():
+		
+		dim = m.getDimensions()
+
+
+		tabres = [[0 for x in xrange(dim)] for x in xrange(dim)] 
+ 
+		for i in range (dim):
+			for j in range(dim):
+				tabres[i][j] = m.getValue(i,j);
+    
+		for k in range (dim):
+			for i in range (dim):
+				for j in range (dim):
+					if tabres[i][k] + tabres[k][j] < tabres[i][j]:
+						tabres[i][j] = tabres[i][k] + tabres[k][j];
+
+		print "Résultat Algortihme Floyd-Warshall"
+		res = Matrice(tabres)
+		print res.affiche()
+ 
+
+	def exit():
+		print "fin"
+	
+
+	algo ={	0 : exit,
+		1 : dyn,
+		2 : floyd
+		#3 : poten,
+		#4 : johnson
+		#5 : ford,
+		#6 : branch,
+		#7 : simplexe
+		
+	}
+
+	algo[num]() 
+
+
+
 
 
 
