@@ -2,7 +2,7 @@
 # -*-coding:Utf-8 -*
 
 from matrice import *
-
+INF = 9999 
 #Définition des algo utilisés par le programme principal avec la matrice en argument
 
 def floyd_algo(m):
