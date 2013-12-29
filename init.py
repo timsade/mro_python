@@ -87,3 +87,18 @@ tab_fulkerson_autre = \
 
 fulkerson_cours = Matrice(tab_fulkerson_cours)
 fulkerson_autre = Matrice(tab_fulkerson_autre)
+
+rep_mpm_cours = \
+         [[INF , 0 , 0 , 0 , INF , INF , INF , INF , INF],
+        [ INF , INF , INF , INF , INF , INF , 6 , INF , INF],
+         [INF , INF , INF , INF , 3 , 3 , INF , INF , INF],
+            [INF , INF , INF , INF , INF , INF , INF , 6 , INF],
+         [INF , INF , INF , INF , INF , INF , 2 , INF , INF],
+         [INF , INF , INF , INF , INF , INF , INF , 4 , INF],
+         [INF , INF , INF , INF , INF , INF , INF , 3 , INF],
+         [INF , INF , INF , INF , INF , INF , INF , INF , 1 ],
+         [INF , INF , INF , INF , INF , INF , INF , INF , INF ]]
+# Debut, A , B , C , D , E , F , G , Fin
+
+
+mpm_cours = Matrice(rep_mpm_cours)

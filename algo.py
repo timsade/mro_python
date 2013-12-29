@@ -92,4 +92,40 @@ def marquer(m,tabres,s,t,flot,sommetMarque):
 		return -1
 
 
-#######################FIN###########################		
+#######################FIN###########################	
+
+#############MPM#####################################
+def mpm(m):
+        
+        dim = m.getDimensions()
+
+        table = [[0 for x in xrange(dim)] for x in xrange(4)]
+        #calcul des temps au plus tôt
+        for i in range (dim):
+                for j in range(dim):
+                        if m.getValue(i,j) != 9999:
+                                table[0][j]=max((table[0][i]+m.getValue(i,j)),table[0][j]);
+        #calcul des temps au plus tard
+        for i in range (dim):
+                table[1][i]=9999;
+
+        table[1][dim-1]= table[0][dim-1]
+
+        for i in reversed(range(dim)):
+                for j in reversed(range(dim)):
+                        if m.getValue(j,i) != 9999:
+                                table[1][j]=min(table[1][i]-m.getValue(j,i),9999) ;
+        
+        #calcul des marges libres
+        for i in range(dim):
+                table[2][i]=table[1][i]-table[0][i];                        
+        
+        print "Le chemin critique est :"
+
+        for i in range(dim):
+               if table[2][i]==0 :
+                        print i ;
+        res = Matrice(table)
+        return res
+        
+#######################FIN###########################  	
