@@ -54,13 +54,13 @@ while num != 0:
 		print res.affiche()
 		source="S { "		
 		for elt in coupeMinimal:
-			source += str(elt) + " "
+			source += str(elt+1) + " "
 		source+='}'
 		des="D { "
 		flotMaximal=0
 		for i in range(dim) :
 			if i not in coupeMinimal:
-				des+=str(i) + " "
+				des+=str(i+1) + " "
 			flotMaximal+=res.getValue(0,i)
 		des+='}'
 		print "Le Flot maximal est : " + str(flotMaximal) + '\n'

@@ -24,12 +24,24 @@ class Matrice :
 		return self.data
 
 	def affiche(self):
-		res="";
+		res="	| ";
+
+		for i in range(len(self.data[0])):
+			res += str(i+1) + "	"
+		res += '\n-------' 	
+
+		for i in range(len(self.data[0])):
+			res += "--------"
+		res += '\n'
+
+		i=1
 		for el in self.data:
+			res += "     "+str(i) +"	| "
 			for  el2 in el:
 				if el2 == 9999:
 					res += "INF" + "	"
 				else:					
 					res += str(el2) + "	"
 			res += "\n"
+			i += 1
 		return res
