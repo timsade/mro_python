@@ -45,8 +45,8 @@ while num != 0:
 				
 		coupeMinimal=list()
 		dim=fulkerson_cours.getDimensions()
-		s=0
-		t=dim-1		
+		s=0 # le sommet source
+		t=dim-1	#le sommet puit(target)
 		print "Matrice de test : "
 		print fulkerson_cours.affiche()
 		print "Matrice des Flux : " 
