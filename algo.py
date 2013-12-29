@@ -46,3 +46,50 @@ def johnson_algo(m):
 		P.remove(rank);
 	T.reverse();
 	return S + T;
+	
+#######################Ford-Fulkerson###########################
+
+def fulkerson_algo(m,s,t,coupeMinimal):
+	dim = m.getDimensions()
+	tabres = [[0 for x in xrange(dim)] for x in xrange(dim)] 
+	j=0
+	sommetMarque=list()
+	
+	while marquer(m,tabres,s,t,INF,sommetMarque) != -1 : # tant qu'il y a un marquage
+		sommetMarque = []
+	for elt in sommetMarque: 
+		coupeMinimal.append(elt) 
+	res = Matrice(tabres)
+	return res
+
+
+
+
+def marquer(m,tabres,s,t,flot,sommetMarque):
+	dim = m.getDimensions()	
+	sommetMarque.append(s)	#les sommets déjà visités
+	if(s==t): #si on est arrivé au puit(target)
+		return flot
+	nouveauFlot=0
+	
+	for j in range(dim): #marquage positif
+		if(m.getValue(s,j)!=INF and (j not in sommetMarque) and tabres[s][j]<m.getValue(s,j)): 							
+			flotPotentiel=m.getValue(s,j)-tabres[s][j]			
+			nouveauFlot = marquer(m,tabres,j,t,min(flotPotentiel,flot),sommetMarque)
+			if(nouveauFlot!=-1):
+				tabres[s][j]+=nouveauFlot
+				return nouveauFlot
+	
+	if(nouveauFlot==0 or nouveauFlot==-1):
+		for j in range(dim):#marquage négatif
+			if(m.getValue(j,s)!=INF and (j not in sommetMarque) and tabres[j][s]>0):
+				flotPotentiel=tabres[j][s]
+				nouveauFlot = marquer(m,tabres,j,t,min(flotPotentiel,flot),sommetMarque)
+				if(nouveauFlot!=-1):
+					tabres[j][s]-=nouveauFlot
+					return nouveauFlot
+	if(nouveauFlot==0 or nouveauFlot==-1):	#si il n'existe pas de successeur
+		return -1
+
+
+#######################FIN###########################		
