@@ -100,5 +100,12 @@ rep_mpm_cours = \
          [INF , INF , INF , INF , INF , INF , INF , INF , INF ]]
 # Debut, A , B , C , D , E , F , G , Fin
 
+tab_BB = \
+	[[INF, 2, 5, 8],
+	[2, INF, 8, 3],
+	[5, 8, INF, 1],
+	[8, 3, 1, INF]]
+
+matrice_BB = Matrice(tab_BB)
 
 mpm_cours = Matrice(rep_mpm_cours)

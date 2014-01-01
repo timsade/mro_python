@@ -79,6 +79,9 @@ while num != 0:
                 des+='}'
                 print "Le Flot maximal est : " + str(flotMaximal) + '\n'
                 print "La coupe minimale " + source + " " + des + '\n'
+
+        def branch():
+                BB(matrice_BB)
                 
         def exit():
                 print "fin"
@@ -89,8 +92,8 @@ while num != 0:
                 2 : floyd,
                 3 : poten,
                 4 : johnson,
-                5 : ford
-                #6 : branch,
+                5 : ford,       
+                6 : branch,
                 #7 : simplexe
                 
         }

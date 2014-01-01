@@ -92,6 +92,59 @@ def marquer(m,tabres,s,t,flot,sommetMarque):
 		return -1
 
 
+def BB(m):
+	print "Branch & Bound"
+	shorter = 0
+	global shorterWay
+	shorterWay = list() #= list()
+	i = 0
+	dim = m.getDimensions()
+	# Attribution d'un chemin arbitraire
+	for j in range(dim):
+		shorter += m.getValue(i,(i+1)%dim)
+		way = "[%d,%d]" % (i,(i+1)%dim)
+		shorterWay.append(i)
+		i = i + 1
+
+	#parcours et recherche d'un chemin plus cours
+	testWay = list()
+	marqued = list()
+	shorter = [INF]
+	shorterWay = [list()]
+	getShorterWay(m,marqued,shorter,shorterWay,0)
+
+	print "Plus court %d " % (shorter[0])
+	print shorterWay[0]
+
+def getValuePath(path,m):
+	res = 0
+	for x in xrange(1,len(path)):
+		res += m.getValue(path[x-1],path[x])
+	return res
+
+def getShorterWay(m,marqued,shorter,shorterWay,myShorter):
+	dim = m.getDimensions()
+	i = 0
+
+	if (len(marqued) == 4):
+		if(myShorter < shorter[0]):
+			shorterWay[0] = marqued
+			shorter[0] = myShorter
+
+	for x in xrange(0,dim):
+		if(not i in marqued):
+			myMarqued = list(marqued)
+			myMarqued.append(i)
+			myShorter = getValuePath(myMarqued,m)
+			if(myShorter < shorter[0]):
+				getShorterWay(m,myMarqued,shorter,shorterWay,myShorter)
+			else:
+				break
+		i += 1
+	
+
+
+
 #######################FIN###########################	
 
 #############MPM#####################################
