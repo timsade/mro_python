@@ -8,13 +8,16 @@ INF = 9999
 def floyd_algo(m):
 
 	dim = m.getDimensions()
-
+	
+	# création d'une copie de la matrice passée en paramètre dans ta tableau tarbes.
 	tabres = [[0 for x in xrange(dim)] for x in xrange(dim)] 
 
 	for i in range (dim):
 		for j in range(dim):
 			tabres[i][j] = m.getValue(i,j);
 
+	# parcours du tableau pour comparer chaque cas longueur d'un sommet à l'autre
+	# et garder la valeur la plus petite.
 	for k in range (dim):
 		for i in range (dim):
 			for j in range (dim):
