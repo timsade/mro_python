@@ -117,7 +117,7 @@ matriceSimplexe_A = matrix([
                              [0, 2, 0, 4, 0],
                              [2, 1, 2, 0, 2]
                            ])
-matriceSimplexe_b = matrix([ [6, 8, 18] ])
+matriceSimplexe_b = matrix([ [6, 8, 18] ]).T
 matriceSimplexe_c = matrix([ [3, 1, 4, 2, -2] ])
 matriceSimplexe_B = matrix([
                              [1, 0, 0],

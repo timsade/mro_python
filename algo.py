@@ -189,18 +189,27 @@ def mpm(m):
 def simplexe_algo(A, b, c, B, baseB):
   nbLignes = A.shape[0]
   nbColonnes = A.shape[1]
+
   A_ = B.I * A
   print "A_:"
   print A_
-  
 
-  Delta = simplexe_getDelta(A_, c, baseB, nbColonnes)
-  s = simplexe_getS(Delta)
-  (r,Theta)  = simplexe_getR_Theta(A_, b, baseB, s)
+  b_ = B.I * b
+  print "b_: "
+  print b_
+  
+  baseN = [ x for x in range(1, nbColonnes + 1) if x not in set(baseB)]
+  print "Base N: "
+  print baseN
+
+  Delta = simplexe_get_Delta(A_, c, baseB, nbColonnes)
+  s = simplexe_get_s(Delta)
+  (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
+  x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
 
   #return x
 
-def simplexe_getDelta(A_, c, baseB, nbColonnes):
+def simplexe_get_Delta(A_, c, baseB, nbColonnes):
   Delta = []
   for j in range(nbColonnes):
     #print "j: {0}".format(j)
@@ -218,18 +227,20 @@ def simplexe_getDelta(A_, c, baseB, nbColonnes):
   
   return Delta
 
-def simplexe_getS(Delta):
+def simplexe_get_s(Delta):
 
-  s = Delta.index(min(Delta))
+  s = Delta.index(min(Delta)) + 1
   print "s: {0}".format(s)
 
   return s
 
-def simplexe_getR_Theta(A_, b, baseB, s):
+def simplexe_get_r_Theta(A_, b_, baseB, s):
   min_a_determiner = []
+
   for i in baseB:
     if A_.A[i-1][s-1] > 0:
-      min_a_determiner.append(b.A[0][i-1] / A_.A[i-1][s-1])
+      min_a_determiner.append(b_.A[i-1][0] / A_.A[i-1][s-1])
+  
 
   Theta = min(min_a_determiner)
   print "Theta: {0}".format(Theta)
@@ -239,3 +250,20 @@ def simplexe_getR_Theta(A_, b, baseB, s):
 
   return (r, Theta)
 
+def simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN):
+  x = [None] * A_.shape[1]
+  
+  x[r-1] = 0
+  x[s-1] = Theta
+
+  for i in baseN:
+    if i != r and i != s:
+     x[i-1] = 0
+
+  for i in baseB:
+    if i != r and i != s:
+      x[i-1] = b_.A[i-1][0] - A_.A[i-1][s-1] * Theta
+
+  print "x: {0}".format(x)
+  
+  return x
