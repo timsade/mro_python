@@ -209,7 +209,8 @@ def simplexe_algo(A, b, c, B, baseB, x_solution):
   s = simplexe_get_s(Delta)
   (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
   x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
-  z_new = simplexe_get_z_new(z_, Delta, x, s)
+  z_ = simplexe_get_z_new(z_, Delta, x, s)
+  baseB = simplexe_get_baseB_new(baseB, r, s)
 
   #return x
 
@@ -278,3 +279,14 @@ def simplexe_get_z_new(z_old, Delta, x, s):
   print "z_ new: {0}".format(z_new)
 
   return z_new
+
+def simplexe_get_baseB_new(baseB_old, r, s):
+  baseB_new = baseB_old[:]
+
+  baseB_new[baseB_old.index(r)] = s
+  
+  print "baseB new: {0}".format(baseB_new)
+
+  return baseB_new
+
+
