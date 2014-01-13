@@ -190,39 +190,41 @@ def mpm(m):
 def simplexe_algo(A, b, c, B, baseB, x_solution):
   nbLignes = A.shape[0]
   nbColonnes = A.shape[1]
-  nbEtapes = 0
-  A_ = A
-  B_ = B
-  b_= b
+  nbEtapes = 1
   z_ = sum([ c.A[0][i] * x_solution[i] for i in range(nbColonnes)])
-  print "z_ initial: {0}".format(z_)
+  print "z_ initial: {0}".format(z_) 
 
-  
+  A_ = B.I * A
+  print "A_: "; print A_
+  b_ = B.I * b
+  print "b_: "; print b_
 
-  A_ = B.I * A_
   Delta = simplexe_get_Delta(A_, c, baseB)
+
+  #Cas simple
+  if not simplexe_has_Delta_negative_element(Delta):
+    return x_solution
   
+  #Cas plus complexe
+  s = simplexe_get_s(Delta)
+  (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
+  baseN = [ x for x in range(1, nbColonnes + 1) if x not in set(baseB)]
+  x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
+  z_ = simplexe_get_z_new(z_, Delta, x, s)
+  B_ = B
+
   while simplexe_has_Delta_negative_element(Delta):
     nbEtapes += 1
     print "\n\nEtape {0}:".format(nbEtapes)
 
-    if nbEtapes > 1: A_ = B.I * A_
-    print "A_: "
-    print A_
-
-    b_ = B.I * b_
-    print "b_: "
-    print b_
-    
-    B_ = simplexe_get_B_new(B_, A_, baseB)
-  
-    baseN = [ x for x in range(1, nbColonnes + 1) if x not in set(baseB)]
-
-    s = simplexe_get_s(Delta)
-    (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
-    x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
-    z_ = simplexe_get_z_new(z_, Delta, x, s)
     baseB = simplexe_get_baseB_new(baseB, r, s)
+    B_ = simplexe_get_B_new(B_, A_, baseB)
+    A_ = B_.I * A_
+    print "A_ new:"; print A_
+
+    b_ = B_.I * b_
+    print "b_ new: "; print b_
+
     Delta = simplexe_get_Delta(A_, c, baseB)
     print "\n"
 
@@ -235,8 +237,9 @@ def simplexe_get_Delta(A_, c, baseB):
   for j in range(nbColonnes):
     sum_delta = 0
     for i in baseB:
-      sum_delta += c.A[0][i-1] * A_.A[i-1][j]
+      #print "(i,j): ({0},{1})".format(i,j)
       #print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][j], A_.A[i-1][j], sum_delta)
+      sum_delta += c.A[0][i-1] * A_.A[i-1][j]
 
     delta = c.A[0][j] - sum_delta
     #print "delta = {0}".format(delta)
