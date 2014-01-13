@@ -185,7 +185,8 @@ def mpm(m):
         return res
         
 #######################FIN###########################  	
-#Simplexe
+
+###################Simplexe####################
 def simplexe_algo(A, b, c, B, baseB, x_solution):
   nbLignes = A.shape[0]
   nbColonnes = A.shape[1]
@@ -211,6 +212,7 @@ def simplexe_algo(A, b, c, B, baseB, x_solution):
   x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
   z_ = simplexe_get_z_new(z_, Delta, x, s)
   baseB = simplexe_get_baseB_new(baseB, r, s)
+  B_ = simplexe_get_B_new(B, A_, baseB)
 
   #return x
 
@@ -289,4 +291,13 @@ def simplexe_get_baseB_new(baseB_old, r, s):
 
   return baseB_new
 
+def simplexe_get_B_new(B_, A_, baseB):
+  for j in baseB:
+    for i in range(B_.shape[0]):
+      B_.A[i][baseB.index(j)] = A_.A[i][j-1]
+
+  print "B_ new:"
+  print B_
+
+  return B_
 
