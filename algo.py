@@ -195,8 +195,8 @@ def simplexe_algo(A, b, c, B, baseB):
   
 
   Delta = simplexe_getDelta(A_, c, baseB, nbColonnes)
-
-
+  s = simplexe_getS(Delta)
+  (r,Theta)  = simplexe_getR_Theta(A_, b, baseB, s)
 
   #return x
 
@@ -211,10 +211,31 @@ def simplexe_getDelta(A_, c, baseB, nbColonnes):
       #print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][j], A_.A[i-1][j], sum_delta)
 
     delta = c.A[0][j] - sum_delta
-    print "delta = {0}".format(delta)
+    #print "delta = {0}".format(delta)
     Delta.append(delta)
   
-  #print "Delta:"
-  #print Delta
+  print "Delta: {0}".format(Delta)
   
   return Delta
+
+def simplexe_getS(Delta):
+
+  s = Delta.index(min(Delta))
+  print "s: {0}".format(s)
+
+  return s
+
+def simplexe_getR_Theta(A_, b, baseB, s):
+  min_a_determiner = []
+  for i in baseB:
+    if A_.A[i-1][s-1] > 0:
+      min_a_determiner.append(b.A[0][i-1] / A_.A[i-1][s-1])
+
+  Theta = min(min_a_determiner)
+  print "Theta: {0}".format(Theta)
+
+  r = min_a_determiner.index(Theta) + 1
+  print "r: {0}".format(r)
+
+  return (r, Theta)
+
