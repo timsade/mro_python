@@ -82,7 +82,23 @@ while num != 0:
 
         def branch():
                 BB(matrice_BB)
-                
+
+        def simplexe():
+          print "\n***Debut simplexe\n"
+          print "Matrices de test:"
+          print "A: "
+          print matriceSimplexe_A
+          print "b:"
+          print matriceSimplexe_b
+          print "c:"
+          print matriceSimplexe_c
+          print "B:"
+          print matriceSimplexe_B
+          print "Base B:"
+          print baseB
+          simplexe_algo(matriceSimplexe_A, matriceSimplexe_b, matriceSimplexe_c, matriceSimplexe_B, baseB)
+          print "\n***Fin simplexe***\n\n"
+
         def exit():
                 print "fin"
         
@@ -94,7 +110,7 @@ while num != 0:
                 4 : johnson,
                 5 : ford,       
                 6 : branch,
-                #7 : simplexe
+                7 : simplexe
                 
         }
 

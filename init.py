@@ -1,6 +1,7 @@
 #!/usr/bin/python2.7
 # -*-coding:Utf-8 -*
 
+from numpy import matrix
 from matrice import *
 
 #Initialisation des variables et des matrices utlisés en test 
@@ -109,3 +110,18 @@ tab_BB = \
 matrice_BB = Matrice(tab_BB)
 
 mpm_cours = Matrice(rep_mpm_cours)
+
+#########Simplexe
+matriceSimplexe_A = matrix([ 
+                             [1, 0, 0, 2, 3],
+                             [0, 2, 0, 4, 0],
+                             [2, 1, 2, 0, 2]
+                           ])
+matriceSimplexe_b = matrix([ [6, 8, 18] ])
+matriceSimplexe_c = matrix([ [3, 1, 4, 2, -2] ])
+matriceSimplexe_B = matrix([
+                             [1, 0, 0],
+                             [0, 2, 0],
+                             [2, 1, 2]
+                           ])
+baseB = [1, 2, 3]

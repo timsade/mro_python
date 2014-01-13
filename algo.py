@@ -1,6 +1,6 @@
 #!/usr/bin/python2.7
 # -*-coding:Utf-8 -*
-
+from numpy import matrix
 from matrice import *
 INF = 9999 
 #Définition des algo utilisés par le programme principal avec la matrice en argument
@@ -185,3 +185,36 @@ def mpm(m):
         return res
         
 #######################FIN###########################  	
+#Simplexe
+def simplexe_algo(A, b, c, B, baseB):
+  nbLignes = A.shape[0]
+  nbColonnes = A.shape[1]
+  A_ = B.I * A
+  print "A_:"
+  print A_
+  
+
+  Delta = simplexe_getDelta(A_, c, baseB, nbColonnes)
+
+
+
+  #return x
+
+def simplexe_getDelta(A_, c, baseB, nbColonnes):
+  Delta = []
+  for j in range(nbColonnes):
+    #print "j: {0}".format(j)
+    sum_delta = 0
+    for i in baseB:
+      #print "i: {0}".format(i)
+      sum_delta += c.A[0][i-1] * A_.A[i-1][j]
+      #print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][j], A_.A[i-1][j], sum_delta)
+
+    delta = c.A[0][j] - sum_delta
+    print "delta = {0}".format(delta)
+    Delta.append(delta)
+  
+  #print "Delta:"
+  #print Delta
+  
+  return Delta
