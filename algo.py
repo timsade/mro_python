@@ -191,14 +191,14 @@ def simplexe_algo(A, b, c, B, baseB, x_solution):
   nbLignes = A.shape[0]
   nbColonnes = A.shape[1]
   nbEtapes = 1
+
+  print "\n\nEtape {0}:".format(nbEtapes)
   z_ = sum([ c.A[0][i] * x_solution[i] for i in range(nbColonnes)])
   print "z_ initial: {0}".format(z_) 
-
   A_ = B.I * A
   print "A_: "; print A_
   b_ = B.I * b
   print "b_: "; print b_
-
   Delta = simplexe_get_Delta(A_, c, baseB)
 
   #Cas simple
@@ -226,6 +226,17 @@ def simplexe_algo(A, b, c, B, baseB, x_solution):
     print "b_ new: "; print b_
 
     Delta = simplexe_get_Delta(A_, c, baseB)
+
+    if not simplexe_has_Delta_negative_element(Delta): break
+      
+    s = simplexe_get_s(Delta)
+    (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
+    baseN = [ x for x in range(1, nbColonnes + 1) if x not in set(baseB)]
+    x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
+    z_ = simplexe_get_z_new(z_, Delta, x, s)
+
+    
+
     print "\n"
 
   print "Solution finale: {0}, trouvee en {1} etapes.".format(x, nbEtapes)
@@ -238,8 +249,8 @@ def simplexe_get_Delta(A_, c, baseB):
     sum_delta = 0
     for i in baseB:
       #print "(i,j): ({0},{1})".format(i,j)
-      #print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][j], A_.A[i-1][j], sum_delta)
-      sum_delta += c.A[0][i-1] * A_.A[i-1][j]
+      sum_delta += c.A[0][i-1] * A_.A[baseB.index(i)][j]
+      #print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][i-1], A_.A[baseB.index(i)][j], sum_delta)
 
     delta = c.A[0][j] - sum_delta
     #print "delta = {0}".format(delta)
