@@ -186,12 +186,12 @@ def mpm(m):
         
 #######################FIN###########################  	
 #Simplexe
-def simplexe_algo(A, b, c, B, baseB):
+def simplexe_algo(A, b, c, B, baseB, x_solution):
   nbLignes = A.shape[0]
   nbColonnes = A.shape[1]
 
   A_ = B.I * A
-  print "A_:"
+  print "A_: "
   print A_
 
   b_ = B.I * b
@@ -199,13 +199,17 @@ def simplexe_algo(A, b, c, B, baseB):
   print b_
   
   baseN = [ x for x in range(1, nbColonnes + 1) if x not in set(baseB)]
-  print "Base N: "
-  print baseN
+
+  z_ = 0
+  for i in range(nbColonnes):
+    z_ += c.A[0][i] * x_solution[i]
+  print "z_ initial: {0}".format(z_)
 
   Delta = simplexe_get_Delta(A_, c, baseB, nbColonnes)
   s = simplexe_get_s(Delta)
   (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
   x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
+  z_new = simplexe_get_z_new(z_, Delta, x, s)
 
   #return x
 
@@ -267,3 +271,10 @@ def simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN):
   print "x: {0}".format(x)
   
   return x
+
+def simplexe_get_z_new(z_old, Delta, x, s):
+  z_new = z_old + Delta[s-1] * x[s-1]
+
+  print "z_ new: {0}".format(z_new)
+
+  return z_new

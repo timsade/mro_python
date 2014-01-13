@@ -96,7 +96,9 @@ while num != 0:
           print matriceSimplexe_B
           print "Base B:"
           print baseB
-          simplexe_algo(matriceSimplexe_A, matriceSimplexe_b, matriceSimplexe_c, matriceSimplexe_B, baseB)
+          print "x solution: "
+          print x_solution
+          simplexe_algo(matriceSimplexe_A, matriceSimplexe_b, matriceSimplexe_c, matriceSimplexe_B, baseB, x_solution)
           print "\n***Fin simplexe***\n\n"
 
         def exit():

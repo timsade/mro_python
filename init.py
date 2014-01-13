@@ -125,3 +125,4 @@ matriceSimplexe_B = matrix([
                              [2, 1, 2]
                            ])
 baseB = [1, 2, 3]
+x_solution = [6, 4, 1, 0, 0]
