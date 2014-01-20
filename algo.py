@@ -3,20 +3,28 @@
 from numpy import matrix
 from matrice import *
 INF = 9999 
-#Définition des algo utilisés par le programme principal avec la matrice en argument
 
+
+#################################################
+###### Définition des algorithmes utilisés ######
+#################################################
+
+
+##### Algorithme de Floyd #####
+
+# il prend en argument la matrice définit dans init.py
 def floyd_algo(m):
 
 	dim = m.getDimensions()
 	
-	# création d'une copie de la matrice passée en paramètre dans ta tableau tarbes.
+	# création d'une copie de la matrice passée en paramètre dans un tableau tabres.
 	tabres = [[0 for x in xrange(dim)] for x in xrange(dim)] 
 
 	for i in range (dim):
 		for j in range(dim):
 			tabres[i][j] = m.getValue(i,j);
 
-	# parcours du tableau pour comparer chaque cas longueur d'un sommet à l'autre
+	# parcours du tableau pour comparer chaque cas : longueur d'un sommet à l'autre
 	# et garder la valeur la plus petite.
 	for k in range (dim):
 		for i in range (dim):
@@ -27,6 +35,10 @@ def floyd_algo(m):
 	res = Matrice(tabres)
 	return res
 
+
+##### Algorithme de Johnson #####
+
+# il prend en argument la matrice définit dans init.py
 def johnson_algo(m):
 	S = list();
 	T = list();
@@ -50,8 +62,10 @@ def johnson_algo(m):
 	T.reverse();
 	return S + T;
 	
-#######################Ford-Fulkerson###########################
 
+##### Algorithme de Ford-Fulkerson #####
+
+# il prend en argument la matrice définit dans init.py, la source, le puits et la coupe minimale
 def fulkerson_algo(m,s,t,coupeMinimal):
 	dim = m.getDimensions()
 	tabres = [[0 for x in xrange(dim)] for x in xrange(dim)] 
@@ -65,17 +79,15 @@ def fulkerson_algo(m,s,t,coupeMinimal):
 	res = Matrice(tabres)
 	return res
 
-
-
-
+# Fonction permettant de marquer un sommet
 def marquer(m,tabres,s,t,flot,sommetMarque):
 	dim = m.getDimensions()	
-	sommetMarque.append(s)	#les sommets déjà visités
-	if(s==t): #si on est arrivé au puit(target)
+	sommetMarque.append(s)	# les sommets déjà visités
+	if(s==t): # si on est arrivé au puit(target)
 		return flot
 	nouveauFlot=0
 	
-	for j in range(dim): #marquage positif
+	for j in range(dim): # marquage positif
 		if(m.getValue(s,j)!=INF and (j not in sommetMarque) and tabres[s][j]<m.getValue(s,j)): 							
 			flotPotentiel=m.getValue(s,j)-tabres[s][j]			
 			nouveauFlot = marquer(m,tabres,j,t,min(flotPotentiel,flot),sommetMarque)
@@ -84,24 +96,27 @@ def marquer(m,tabres,s,t,flot,sommetMarque):
 				return nouveauFlot
 	
 	if(nouveauFlot==0 or nouveauFlot==-1):
-		for j in range(dim):#marquage négatif
+		for j in range(dim): # marquage négatif
 			if(m.getValue(j,s)!=INF and (j not in sommetMarque) and tabres[j][s]>0):
 				flotPotentiel=tabres[j][s]
 				nouveauFlot = marquer(m,tabres,j,t,min(flotPotentiel,flot),sommetMarque)
 				if(nouveauFlot!=-1):
 					tabres[j][s]-=nouveauFlot
 					return nouveauFlot
-	if(nouveauFlot==0 or nouveauFlot==-1):	#si il n'existe pas de successeur
+	if(nouveauFlot==0 or nouveauFlot==-1): # si il n'existe pas de successeur
 		return -1
 
 
+##### Algorithme de Branch & Bound #####
+# il prend en argument la matrice définit dans init.py
 def BB(m):
 	print "Branch & Bound"
 	shorter = 0
 	global shorterWay
-	shorterWay = list() #= list()
+	shorterWay = list() # = list()
 	i = 0
 	dim = m.getDimensions()
+
 	# Attribution d'un chemin arbitraire
 	for j in range(dim):
 		shorter += m.getValue(i,(i+1)%dim)
@@ -144,23 +159,22 @@ def getShorterWay(m,marqued,shorter,shorterWay,myShorter):
 			else:
 				break
 		i += 1
-	
 
 
-
-#######################FIN###########################	
-
-#############MPM#####################################
+##### Méthode des potetiels #####
+# il prend en argument la matrice définit dans init.py
 def mpm(m):
         
         dim = m.getDimensions()
 
         table = [[0 for x in xrange(dim)] for x in xrange(4)]
-        #calcul des temps au plus tôt
+        
+        # calcul des temps au plus tôt
         for i in range (dim):
                 for j in range(dim):
                         if m.getValue(i,j) != 9999:
                                 table[0][j]=max((table[0][i]+m.getValue(i,j)),table[0][j]);
+        
         #calcul des temps au plus tard
         for i in range (dim):
                 table[1][i]=9999;
@@ -172,7 +186,7 @@ def mpm(m):
                         if m.getValue(j,i) != 9999:
                                 table[1][j]=min(table[1][i]-m.getValue(j,i),9999) ;
         
-        #calcul des marges libres
+        # calcul des marges libres
         for i in range(dim):
                 table[2][i]=table[1][i]-table[0][i];                        
         
@@ -183,10 +197,10 @@ def mpm(m):
                         print i ;
         res = Matrice(table)
         return res
-        
-#######################FIN###########################  	
+       
 
-###################Simplexe####################
+##### Algorithme du simplexe #####
+# il prend en argument les matrices A, B, b et c, la base B et la solution admissible définis dans init.py
 def simplexe_algo(A, b, c, B, baseB, x_solution):
   nbLignes = A.shape[0]
   nbColonnes = A.shape[1]
@@ -201,11 +215,11 @@ def simplexe_algo(A, b, c, B, baseB, x_solution):
   print "b_: "; print b_
   Delta = simplexe_get_Delta(A_, c, baseB)
 
-  #Cas simple
+  # Cas simple
   if not simplexe_has_Delta_negative_element(Delta):
     return x_solution
   
-  #Cas plus complexe
+  # Cas plus complexe
   s = simplexe_get_s(Delta)
   (r,Theta)  = simplexe_get_r_Theta(A_, b, baseB, s)
   baseN = [ x for x in range(1, nbColonnes + 1) if x not in set(baseB)]
@@ -235,8 +249,6 @@ def simplexe_algo(A, b, c, B, baseB, x_solution):
     x = simplexe_get_x(A_, Theta, b_, r, s, baseB, baseN)
     z_ = simplexe_get_z_new(z_, Delta, x, s)
 
-    
-
     print "\n"
 
   print "Solution finale: {0}, trouvee en {1} etapes.".format(x, nbEtapes)
@@ -248,12 +260,12 @@ def simplexe_get_Delta(A_, c, baseB):
   for j in range(nbColonnes):
     sum_delta = 0
     for i in baseB:
-      #print "(i,j): ({0},{1})".format(i,j)
+      # print "(i,j): ({0},{1})".format(i,j)
       sum_delta += c.A[0][i-1] * A_.A[baseB.index(i)][j]
-      #print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][i-1], A_.A[baseB.index(i)][j], sum_delta)
+      # print "i: {0}, j: {1}, c[j]: {2}, A_[i][j]: {3}, sum_delta = {4}".format(i,j+1,c.A[0][i-1], A_.A[baseB.index(i)][j], sum_delta)
 
     delta = c.A[0][j] - sum_delta
-    #print "delta = {0}".format(delta)
+    # print "delta = {0}".format(delta)
     Delta.append(delta)
   
   print "Delta: {0}".format(Delta)
@@ -261,7 +273,6 @@ def simplexe_get_Delta(A_, c, baseB):
   return Delta
 
 def simplexe_get_s(Delta):
-
   s = Delta.index(min(Delta)) + 1
   print "s: {0}".format(s)
 
@@ -335,7 +346,8 @@ def simplexe_has_Delta_negative_element(Delta):
   return False
 
 
-########################### PROGRAMMATION DYNAMIQUE ####################
+##### Algorithme de programmation dynamique #####
+# il prend en argument la matrice définit dans init.py
 def prog_dynamique(m):
   dim = m.getDimensions()
   nbcol = m.getNbCol()
@@ -360,7 +372,7 @@ def prog_dynamique(m):
       m1 = Matrice(m1)
       oldtmp = tmp
       tmp = process_two_colomns(m1, dim)
-      tt= () #tuple temporaire
+      tt= () # tuple temporaire
 
       for t in range(dim):
         if len(tmp[t][0]) == 2:
@@ -438,4 +450,4 @@ def affiche_tuple(t):
     res += "["+str(t[i])+","+str(t[i+1])+"] "
   return res
 
-##########################FIN#################################
+######################### FIN #########################

@@ -4,14 +4,17 @@
 from numpy import matrix
 from matrice import *
 
-#Initialisation des variables et des matrices utlisés en test 
-#TODO matrice dans un fichier en lecture ? (pas ma priorité @timsade)
+
+##########################################################
+###### Initialisation des variables et des matrices ######
+##########################################################
+
 
 INF = 9999
 
 intro = "------- MRO PYTHON ------ \n \
 1 - Programmation dynamique  \n \
-2 - Floyd-WHarshall\n \
+2 - Floyd-Wharshall\n \
 3 - Méthode des potentiels \n \
 4 - Johnson \n \
 5 - Ford-Fulkerson\n \
@@ -21,6 +24,9 @@ intro = "------- MRO PYTHON ------ \n \
 
 num=-10
 
+##### Algorithme de programmation dynamique #####
+
+# Matrice étudiée en cours
 tab_dynamique_cours = \
   [[0 ,  0 , 0 , 0 ],\
   [ 0.28 , 0.25 , 0.15, 0.20],\
@@ -29,6 +35,7 @@ tab_dynamique_cours = \
   [ 0.78 , 0.65  , 0.50, 0.48],\
   [ 0.90 , 0.75 , 0.62, 0.53]]
 
+# Autre exemple de matrice
 tab_dynamique_autre = \
   [[0 ,  0 , 0, 0],\
   [ 26 , 23 , 16, 19],\
@@ -39,6 +46,10 @@ tab_dynamique_autre = \
 dynamique_cours = Matrice(tab_dynamique_cours)
 dynamique_autre = Matrice(tab_dynamique_autre)
 
+
+##### Algorithme de Floyd #####
+
+# Matrice étudiée en cours
 tab_floyd_cours = \
 	[[INF ,  3  ,  8  ,  6  , INF , INF ],\
 	[ INF , INF , INF ,  2  ,  6  , INF ],\
@@ -47,6 +58,7 @@ tab_floyd_cours = \
 	[ INF , INF , INF , INF , INF ,  2  ],\
 	[ INF , INF , INF , INF , INF , INF ]]
 
+# Autre exemple de matrice
 tab_floyd_autre = \
 	[[ 0  , 5   , INF , 10 ],\
 	[ INF , 0   , 3   , INF],\
@@ -56,6 +68,10 @@ tab_floyd_autre = \
 floyd_cours = Matrice(tab_floyd_cours)
 floyd_autre = Matrice(tab_floyd_autre)
 
+
+##### Algorithme de Johnson #####
+
+# Matrice étudiée en cours
 tab_johnson_cours = \
 	[[5,7],\
 	 [6,4],\
@@ -66,6 +82,7 @@ tab_johnson_cours = \
 	 [4,3],\
 	 [5,6]]
 
+# Autre exemple de matrice
 tab_johnson_autre = \
 	[[50,60],\
 	 [150,50],\
@@ -76,6 +93,10 @@ tab_johnson_autre = \
 johnson_cours = Matrice(tab_johnson_cours)
 johnson_autre = Matrice(tab_johnson_autre)
 
+
+##### Algorithme de Ford-Fulkerson #####
+
+# Matrice étudiée en cours
 tab_fulkerson_cours = \
 	[[INF,35,35,40,INF,INF,INF,INF],\
 	 [INF,INF,INF,INF,20,INF,10,INF],\
@@ -86,8 +107,7 @@ tab_fulkerson_cours = \
 	 [INF,INF,INF,INF,INF,INF,INF,60],\
 	 [85,INF,INF,INF,INF,INF,INF,INF]]
 
-
-
+# Autre exemple de matrice
 tab_fulkerson_autre = \
 	[[INF,20,15,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF],\
 	 [INF,INF,10,8,6,INF,INF,INF,INF,INF,INF,INF,INF,INF],\
@@ -107,6 +127,11 @@ tab_fulkerson_autre = \
 fulkerson_cours = Matrice(tab_fulkerson_cours)
 fulkerson_autre = Matrice(tab_fulkerson_autre)
 
+
+##### Méthode des potentiels #####
+
+# Tableau étudié en cours
+# Debut, A , B , C , D , E , F , G , Fin
 rep_mpm_cours = \
          [[INF , 0 , 0 , 0 , INF , INF , INF , INF , INF],
         [ INF , INF , INF , INF , INF , INF , 6 , INF , INF],
@@ -117,8 +142,13 @@ rep_mpm_cours = \
          [INF , INF , INF , INF , INF , INF , INF , 3 , INF],
          [INF , INF , INF , INF , INF , INF , INF , INF , 1 ],
          [INF , INF , INF , INF , INF , INF , INF , INF , INF ]]
-# Debut, A , B , C , D , E , F , G , Fin
 
+mpm_cours = Matrice(rep_mpm_cours)
+
+
+##### Algorithme de Branch & Bound #####
+
+# Matrice 
 tab_BB = \
 	[[INF, 2, 5, 8],
 	[2, INF, 8, 3],
@@ -127,9 +157,10 @@ tab_BB = \
 
 matrice_BB = Matrice(tab_BB)
 
-mpm_cours = Matrice(rep_mpm_cours)
 
-#########Simplexe
+##### Algorithme du simplexe #####
+
+# Matrices utilisées pour parcourir l'algorithme : A, B, b et c
 matriceSimplexe_A = matrix([ 
                              [1, 0, 0, 2, 3],
                              [0, 2, 0, 4, 0],
@@ -142,5 +173,11 @@ matriceSimplexe_B = matrix([
                              [0, 2, 0],
                              [2, 1, 2]
                            ])
+
+# Définition de la base
 baseB = [1, 2, 3]
+
+# Solution admissible
 x_solution = [6, 4, 1, 0, 0]
+
+######################### FIN #########################

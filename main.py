@@ -6,17 +6,22 @@ from init import *
 from algo import *
 
 
-#le main qui ne fait qu'un switch case sur ce que l'utilisateur veut faire
+#######################################
+###### Main et affichage du menu ######
+#######################################
+
+
 while num != 0:
 
         print intro
 
+        # l'utilisateur saisit son choix
         num = input("Entrer le numéro correspondant: ")
         print '\n'
 
-        #début du switch case à la pyhton
+        # début du switch case à la pyhton
 
-        #dynamiques
+        # Algorithme de programmation dynamique
         def dyn():
                 print "Matrice de test :"
                 print dynamique_cours.affiche()
@@ -29,8 +34,8 @@ while num != 0:
                     print str(j) + " | " + str(res[j][0]) + "     " + affiche_tuple(res[j][1])
                 print '\n'
 
+        # Algorithme de Floyd
         def floyd():
-                
                 print "Matrice de test :"
                 print floyd_cours.affiche()
 
@@ -39,8 +44,8 @@ while num != 0:
                 print "Résultat Algortihme Floyd-Warshall"
                 print res.affiche()
 
+        # Méthode des potentiels
         def poten():
-                
                 print "Matrice de test :"
                 print mpm_cours.affiche()
 
@@ -53,6 +58,7 @@ while num != 0:
                 print "Ligne 3 : les marges libres "
                 print res.affiche()
                 
+        # Algorithme de Johnson
         def johnson():
                 print "Matrice de test :"
                 print johnson_cours.affiche()
@@ -64,8 +70,9 @@ while num != 0:
                 for elt in res:
                         ordre_pieces += str(elt) + " "
                 print ordre_pieces + '\n'
+
+        # Algorithme de Ford-Fulkerson
         def ford():
-                                
                 coupeMinimal=list()
                 dim=fulkerson_cours.getDimensions()
                 s=0 # le sommet source
@@ -89,9 +96,11 @@ while num != 0:
                 print "Le Flot maximal est : " + str(flotMaximal) + '\n'
                 print "La coupe minimale " + source + " " + des + '\n'
 
+        # Algorithme de Branch & Bound
         def branch():
                 BB(matrice_BB)
 
+        # Algorithme du simplexe
         def simplexe():
           print "\n***Debut simplexe\n"
           print "Matrices de test:"
@@ -110,6 +119,7 @@ while num != 0:
           simplexe_algo(matriceSimplexe_A, matriceSimplexe_b, matriceSimplexe_c, matriceSimplexe_B, baseB, x_solution)
           print "\n***Fin simplexe***\n\n"
 
+        # Fin du programme
         def exit():
                 print "fin"
         
@@ -127,6 +137,4 @@ while num != 0:
 
         algo[num]()
 
-
-
-
+######################### FIN #########################
