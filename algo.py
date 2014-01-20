@@ -356,6 +356,7 @@ def prog_dynamique(m):
   chemin = [0 for x in xrange(dim)]
   res = [[0 for x in range(2)] for y in xrange(dim)]
   
+  # parcours les colonnes de la matrices pour les comparer 
   for i in range(nbcol-1):
     m1 = [[0 for k in xrange(2)] for l in xrange(dim)]
     if i == 0 :
@@ -370,11 +371,11 @@ def prog_dynamique(m):
         m1[t][0] = tmp[t][1]
         m1[t][1] = m.getValue(t, i+1)
       m1 = Matrice(m1)
-      oldtmp = tmp
       tmp = process_two_colomns(m1, dim)
       tt= () # tuple temporaire
 
-      for t in range(dim):
+      # mise à jour des chemins
+      for t in range(dim): 
         if len(tmp[t][0]) == 2:
           if tmp[t][0][1] ==  1:
             chemin[t] = (tmp[t][0][0], i+1)
@@ -386,6 +387,7 @@ def prog_dynamique(m):
             tt = (tmp[t][0][2], i+1)
             chemin[t] = chemin[tmp[t][0][0]]+tt
 
+      # remplissage du tableau de résultat
       if i == nbcol-2:
         for j in range(dim):
           res[j][0] = tmp[j][1]
@@ -393,16 +395,20 @@ def prog_dynamique(m):
           
   return res
 
-def process_two_colomns(m, dim):
+# Prend 2 colonnes et retourne la colonne représentant le maximum des 2
+def process_two_colomns(m, dim): 
   assoc = []
   i = 0
+
+  # parcours chaque ligne
   for j in range(dim):
     if j != 0 :
       lstcmp = {} # liste de stockage  des combinaisons possibles pour chaque ligne
       maxi = 0
       lstcmp[(j, i)] = m.getValue(j, i)
 
-      for k in range(j) :
+      # parcours de chaque ligne précédente à la ligne actuelle et stockage de toutes les combinaisons possibles
+      for k in range(j) : 
         if k == j :
           if (j, i) in lstcmp.keys() :
             if lstcmp[(j, i)] < m.getValue(j,i) :
