@@ -21,6 +21,24 @@ intro = "------- MRO PYTHON ------ \n \
 
 num=-10
 
+tab_dynamique_cours = \
+  [[0 ,  0 , 0 , 0 ],\
+  [ 0.28 , 0.25 , 0.15, 0.20],\
+  [ 0.45 , 0.41 , 0.25, 0.35],\
+  [ 0.65 , 0.55  , 0.40, 0.42],\
+  [ 0.78 , 0.65  , 0.50, 0.48],\
+  [ 0.90 , 0.75 , 0.62, 0.53]]
+
+tab_dynamique_autre = \
+  [[0 ,  0 , 0, 0],\
+  [ 26 , 23 , 16, 19],\
+  [ 39 , 36 , 32, 36],\
+  [ 48 , 44  , 48, 47],\
+  [ 54 , 49 , 64, 56]]
+
+dynamique_cours = Matrice(tab_dynamique_cours)
+dynamique_autre = Matrice(tab_dynamique_autre)
+
 tab_floyd_cours = \
 	[[INF ,  3  ,  8  ,  6  , INF , INF ],\
 	[ INF , INF , INF ,  2  ,  6  , INF ],\

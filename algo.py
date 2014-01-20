@@ -333,3 +333,109 @@ def simplexe_has_Delta_negative_element(Delta):
       return True
 
   return False
+
+
+########################### PROGRAMMATION DYNAMIQUE ####################
+def prog_dynamique(m):
+  dim = m.getDimensions()
+  nbcol = m.getNbCol()
+  tmp = []
+  m1 = []
+  chemin = [0 for x in xrange(dim)]
+  res = [[0 for x in range(2)] for y in xrange(dim)]
+  
+  for i in range(nbcol-1):
+    m1 = [[0 for k in xrange(2)] for l in xrange(dim)]
+    if i == 0 :
+      m1 = [[m.getValue(l,k) for k in xrange(i, i+2)] for l in xrange(dim)]
+      m1 = Matrice(m1)
+      tmp = process_two_colomns(m1, dim)
+      for s in range(dim):
+        chemin[s] = tmp[s][0]
+      
+    else :
+      for t in range(len(tmp)) :
+        m1[t][0] = tmp[t][1]
+        m1[t][1] = m.getValue(t, i+1)
+      m1 = Matrice(m1)
+      oldtmp = tmp
+      tmp = process_two_colomns(m1, dim)
+      tt= () #tuple temporaire
+
+      for t in range(dim):
+        if len(tmp[t][0]) == 2:
+          if tmp[t][0][1] ==  1:
+            chemin[t] = (tmp[t][0][0], i+1)
+        else:
+          if tmp[t][0][1] == 1:
+            tt = (tmp[t][0][0], i+1)
+            chemin[t] = chemin[tmp[t][0][2]]+tt
+          else:
+            tt = (tmp[t][0][2], i+1)
+            chemin[t] = chemin[tmp[t][0][0]]+tt
+
+      if i == nbcol-2:
+        for j in range(dim):
+          res[j][0] = tmp[j][1]
+          res[j][1] = chemin[j]
+          
+  return res
+
+def process_two_colomns(m, dim):
+  assoc = []
+  i = 0
+  for j in range(dim):
+    if j != 0 :
+      lstcmp = {} # liste de stockage  des combinaisons possibles pour chaque ligne
+      maxi = 0
+      lstcmp[(j, i)] = m.getValue(j, i)
+
+      for k in range(j) :
+        if k == j :
+          if (j, i) in lstcmp.keys() :
+            if lstcmp[(j, i)] < m.getValue(j,i) :
+              lstcmp[(j, i)] = m.getValue(j,i)
+          else :
+            lstcmp[(j, i)] = m.getValue(j,i)
+
+          if (j, i+1) in lstcmp.keys() :
+            if lstcmp[(j, i+1)] < m.getValue(j,i+1) :
+              lstcmp[(j, i+1)] = m.getValue(j,i+1)
+          else :
+            lstcmp[(j, i+1)] = m.getValue(j,i+1)
+        
+        else :
+          for l in range(j) :
+            if (k+l) <= j :
+              if (k, i, l, i+1) in lstcmp.keys() :
+                if lstcmp[(k, i, l, i+1)] < (m.getValue(k,i)+m.getValue(l,i+1)) :
+                  lstcmp[(k, i, l, i+1)] = (m.getValue(k,i)+m.getValue(l,i+1))
+              else :
+                lstcmp[(k, i, l, i+1)] = (m.getValue(k,i)+m.getValue(l,i+1))
+
+              if (k, i+1, l, i) in lstcmp.keys() :
+                if lstcmp[(k, i+1, l, i)] < (m.getValue(k,i+1)+m.getValue(l,i)) :
+                  lstcmp[(k, i+1, l, i)] = (m.getValue(k,i+1)+m.getValue(l,i))
+              else :
+                lstcmp[(k, i+1, l, i)] = (m.getValue(k,i+1)+m.getValue(l,i))
+      
+      maxi = max(lstcmp.values())
+      for key in lstcmp:
+        if lstcmp[key] == maxi :
+          assoc.append([key, maxi])
+          break
+    
+    else :
+      if m.getValue(j,i) > m.getValue(j,i+1):
+        assoc.append([(j, i), m.getValue(j,i)])
+      else :
+        assoc.append([(j, i+1), m.getValue(j, i+1)])  
+  return assoc
+
+def affiche_tuple(t):
+  res = ""
+  for i in range(0, len(t), 2):
+    res += "["+str(t[i])+","+str(t[i+1])+"] "
+  return res
+
+##########################FIN#################################

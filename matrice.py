@@ -20,6 +20,12 @@ class Matrice :
 	
 		return i
 
+	def getNbCol(self):
+		k = 0
+		for i in range(len(self.data[0])) :
+			k+=1
+		return k
+
 	def getData(self):
 		return self.data
 

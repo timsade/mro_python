@@ -18,7 +18,16 @@ while num != 0:
 
         #dynamiques
         def dyn():
-                print "à faire"
+                print "Matrice de test :"
+                print dynamique_cours.affiche()
+
+                res = prog_dynamique(dynamique_cours)
+
+                print "Résultat Algortihme Programmation Dynamique\n"
+                print "   Max.      Coordonnées matrice"
+                for j in range(len(res)):
+                    print str(j) + " | " + str(res[j][0]) + "     " + affiche_tuple(res[j][1])
+                print '\n'
 
         def floyd():
                 
